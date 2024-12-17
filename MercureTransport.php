@@ -15,9 +15,9 @@ use Symfony\Component\Mercure\Exception\InvalidArgumentException;
 use Symfony\Component\Mercure\Exception\RuntimeException as MercureRuntimeException;
 use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Mercure\Update;
-use Symfony\Component\Notifier\Exception\LogicException;
 use Symfony\Component\Notifier\Exception\RuntimeException;
 use Symfony\Component\Notifier\Exception\UnsupportedMessageTypeException;
+use Symfony\Component\Notifier\Exception\UnsupportedOptionsException;
 use Symfony\Component\Notifier\Message\ChatMessage;
 use Symfony\Component\Notifier\Message\MessageInterface;
 use Symfony\Component\Notifier\Message\SentMessage;
@@ -67,7 +67,7 @@ final class MercureTransport extends AbstractTransport
         }
 
         if (($options = $message->getOptions()) && !$options instanceof MercureOptions) {
-            throw new LogicException(\sprintf('The "%s" transport only supports instances of "%s" for options.', __CLASS__, MercureOptions::class));
+            throw new UnsupportedOptionsException(__CLASS__, MercureOptions::class, $options);
         }
 
         $options ??= new MercureOptions($this->topics);
