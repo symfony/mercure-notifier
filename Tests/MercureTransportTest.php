@@ -83,7 +83,7 @@ final class MercureTransportTest extends TransportTestCase
     public function testSendWithNonMercureOptionsThrows()
     {
         $this->expectException(LogicException::class);
-        self::createTransport()->send(new ChatMessage('testMessage', $this->createMock(MessageOptionsInterface::class)));
+        self::createTransport()->send(new ChatMessage('testMessage', $this->createStub(MessageOptionsInterface::class)));
     }
 
     public function testSendWithTransportFailureThrows()
